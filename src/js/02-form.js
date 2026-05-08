@@ -7,70 +7,53 @@ let formData = {
   message: '',
 };
 
-//  Sayfa yenilendiğinde localStorage kontrolü
-const savedData = localStorage.getItem('feedback-form-state');
+// Sayfa yenilendiğinde localStorage kontrolü
+const savedData = localStorage.getItem(STORAGE_KEY);
 
 if (savedData) {
   formData = JSON.parse(savedData);
-  form.elements.email.value = formData.email;
-  form.elements.message.value = formData.message;
+
+  form.elements.email.value = formData.email || '';
+  form.elements.message.value = formData.message || '';
 }
 
-// Formda her input değiştiğinde çalışacak event listener
+// Input event
 form.addEventListener('input', event => {
-  // event.target ile hangi input'a yazıldığını alıyoruz
-  formData[event.target.name] = event.target.value.trim();
   const { name, value } = event.target;
+
   formData[name] = value.trim();
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 });
 
-// Form submit işlemi
+// Submit event
 form.addEventListener('submit', event => {
   event.preventDefault();
+
   const email = form.elements.email.value.trim();
-  const message = form.elements.message.value.trim()
-){
-    if (email === '' || message === '') {
+  const message = form.elements.message.value.trim();
+
+  // Boş alan kontrolü
+  if (email === '' || message === '') {
     alert('Lütfen tüm alanları doldurun.');
     return;
   }
 
-  // konsola nesne yazdır
-  console.log(formData);
-    email,
-    message,
-  });
-
-  // localStorage temizle
-  localStorage.removeItem('feedback-form-state');
-
-  // Formu temizle
-  form.reset();
-
-  // nesneyi sıfırla
-  formData = {
-    email: '',
-    message: '',
-  };
-});
-
-
+  // Konsola yazdır
   console.log({
     email,
     message,
   });
 
-  
-  // Konsola formdaki verileri yazdırıyoruz
-  console.log(formData);
+  // localStorage temizle
+  localStorage.removeItem(STORAGE_KEY);
 
-  // Formu sıfırlıyoruz
+  // Formu temizle
   form.reset();
 
-  // temizleme
-  localStorage.removeItem("feedback-form-state");
-  form.reset();
-
-  formData = { email: '', message: '' };
+  // Nesneyi sıfırla
+  formData = {
+    email: '',
+    message: '',
+  };
 });
