@@ -1,6 +1,6 @@
-const form = document.querySelector(.feedback-form');
-
+const form = document.querySelector('.feedback-form');
 const STORAGE_KEY = 'feedback-form-state';
+
 
 let formData = {
   email: '',
