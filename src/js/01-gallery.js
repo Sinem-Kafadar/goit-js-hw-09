@@ -71,7 +71,7 @@ const images = [
 
 const galleryContainer = document.querySelector(".gallery");
 
-// Galeri içeriğini oluşturuyoruz
+// Galeri içeriğini oluşturalım
 const galleryMarkup = images
   .map(({ preview, original, description }) => {
     return `
